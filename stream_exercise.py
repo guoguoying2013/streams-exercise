@@ -1,4 +1,4 @@
-
+import io
 
 class StreamProcessor(object):
     """
@@ -43,7 +43,7 @@ class StreamProcessor(object):
     """
 
     def __init__(self, stream):
-        self._stream = stream
+       self._stream = stream
 
     def process(self):
         """
@@ -56,12 +56,27 @@ class StreamProcessor(object):
                    # together.
         total = 0  # The running total of sums.
 
-        # TODO: WRITE CODE HERE:
+        while True:
+            if count < 10 and total < 200:
+                digits = self._stream.read(2)
+                if len(digits) < 2:
+                   return count
+                count += 1
+                n = int(digits)
+                total += n
+                print(total)
+                print(count)
+            if total < 10 and total >=200:
+               print(total, "total >=200")
+               return count
+            if count >=10:
+               print(count, "count > 10")
+               return count
+            else:
+               break
 
-        # Just some example syntax, you can read two digits from the head of the
-        # stream using the following code:
-        #
-        # digits = self._stream.read(2)
 
-
-        return count
+if __name__ == "__main__":
+    value = "234761640930110349378289194"
+    classInstance = StreamProcessor(io.StringIO(value))
+    classInstance.process()
